@@ -6,13 +6,6 @@ import csv
 # TODO: generate automatically via obsidian text stuff
 # add input for adding scene name and set name
 
-
-#data = [['scene', 'en', 'pt-br'], ["prologue_start_1_1", 'Hello', "Olá"], ["prologue_start_1_2", 'Testing', "Testando"]]
-
-#with open('output.csv', 'w', newline='') as file:
-#    writer = csv.writer(file)
-#    writer.writerows(data)
-
 def add_to_csv(lines):
     # NOTE: temporary data, will be appended to existing csv next update
     initial_data = [['scene', 'en', 'pt-br']]
@@ -31,3 +24,6 @@ def add_to_csv(lines):
     with open('output.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerows(initial_data)
+
+# TODO: add mode for appending to existant csv files, replace existant files, make it so
+# it doesnt overwrite others columns, etc

@@ -1,6 +1,10 @@
 import csv
 
 def format_test(csv_file, lang):
+    # NOTE: format
+    # add_dialogue(scene_csv_key) (first page is add_dialogue_start)
+    # if next page, use add_dialogue_next
+
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
 
@@ -13,5 +17,6 @@ def format_test(csv_file, lang):
                 return
             
             print(f"{row["scene"]}: {row[lang]}")
-    
+
+
     pass

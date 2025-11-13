@@ -125,6 +125,7 @@ def add_existant_to_csv(lines, filename: str = 'output.csv'):
     pass
 
 # replaces existant fields values of a specific column
+# maybe this can work as a add too?
 def replace_existant_csv(lines, filename: str = 'output.csv'):
     pass
 

@@ -6,7 +6,7 @@ import csv
 # TODO: generate automatically via obsidian text stuff
 # add input for adding scene name and set name
 
-def add_to_csv(lines):
+def add_to_csv(lines, filename: str = 'output.csv'):
     # NOTE: temporary data, will be appended to existing csv next update
     initial_data = [['scene', 'en', 'pt-br']]
 
@@ -20,10 +20,109 @@ def add_to_csv(lines):
         initial_data.append([f"{scene_name}_{set_name}_{page}_{index}", value, ""])
     
     print(initial_data)
+    try:
+        with open(filename, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(initial_data)
+    except Exception as e:
+        print(f"Error writing to CSV: {e}")
 
-    with open('output.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows(initial_data)
+def append_to_csv(lines, filename: str = "output.csv", mode: str = "a"):
+    data = []
+
+    for key, value in lines.items():
+        split_key = key.split("_")
+        set_name = "start"
+        scene_name = "prologue"
+        page = split_key[1]
+        index = split_key[3]
+
+        data.append([f"{scene_name}_{set_name}_{page}_{index}", value, ""])
+    
+    print(data)
+
+    try:
+        with open(filename, 'a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(data)
+    except Exception as e:
+        print(f"Error writing to CSV: {e}")
+
+def continue_to_nextline_csv(lines, filename: str = "output.csv", scene_name_csv: str = "prologue", set_name_csv: str = "start"):
+    data = []
+    page = ""
+    dict_rows = []
+
+    try:
+        with open(filename, 'r+') as file:
+            reader_dict = csv.DictReader(file)
+
+            dict_rows = list(reader_dict)
+
+    except Exception as e:
+        print(f"Error writing to CSV: {e}")
+    
+    last_page_found = 0
+
+    # NOTE: this is for finding the last set name index position,
+    # to be able to continue from there
+    insert_index = 0
+
+    for k in dict_rows:
+        scene_name = k["scene"].split("_")[0]
+        set_name = k["scene"].split("_")[1]
+        page_found = k["scene"].split("_")[2]
+        
+        if set_name == set_name_csv and scene_name == scene_name_csv:
+            insert_index += 1
+            last_page_found = int(page_found)
+    
+    #print(f"Last set found: {last_set_found}")
+
+    #print(last_page_found)
+    print(insert_index)
+    #print( dict_rows[last_set_found] )
+    #print(dict_rows)
+
+
+    for key, value in lines.items():
+        split_key = key.split("_")
+        set_name = "start"
+        scene_name = "prologue"
+        page = str(int(split_key[1]) + last_page_found)
+        index = split_key[3]
+
+        new_row_dict = {
+            'scene': f"{scene_name}_{set_name}_{page}_{index}",
+            'en': value,
+            'pt-br': ""  # Assuming 'pt-br' is your third column
+        }
+
+        dict_rows.insert(insert_index, new_row_dict)
+        insert_index += 1
+        #print(page)
+    
+    #print(dict_rows)
+
+    fieldnames = dict_rows[0].keys()
+
+    print(dict_rows)
+
+    try:
+        with open(filename, 'w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            
+            writer.writeheader()
+
+            writer.writerows(dict_rows)
+    except Exception as e:
+        print(f"Error writing to CSV: {e}")
+
+
+# this adds value to existant fields, like prologue_start_1_1
+# which is going to be used to fill the pt-br column
+def add_existant_to_csv(lines, filename: str = 'output.csv'):
+    pass
 
 # TODO: add mode for appending to existant csv files, replace existant files, make it so
 # it doesnt overwrite others columns, etc

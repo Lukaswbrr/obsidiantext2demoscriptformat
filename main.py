@@ -1,5 +1,5 @@
 import pyperclip as pc
-from csv_test import add_to_csv
+from csv_test import add_to_csv, append_to_csv, continue_to_nextline_csv
 from format import test_format
 from csv_format import format_test
 
@@ -12,6 +12,9 @@ test_text = r""">It was a single decision.
 >The decision in that day really changed me. \Comparing that day and the yesterday, it was like a window, where both sides are extremely different.
 >One side was the normal me.
 >But the other, was no longer in the realms of normality.
+>
+>
+>test new line
 
 >That day, I decided to follow my heart.
 >To chase after what I truly wanted.
@@ -22,6 +25,12 @@ test_text = r""">It was a single decision.
 >But deep down, I knew that this was the start of something new.
 """
 
+#print( test_format(test_text) )
+
 #add_to_csv(test_format(test_text))
 
-format_test('output.csv', "en")
+#append_to_csv(test_format(test_text), "output_test.csv")
+
+continue_to_nextline_csv(test_format(test_text), "output_test copy.csv")
+
+#format_test('output.csv', "en")

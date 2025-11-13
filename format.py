@@ -28,20 +28,43 @@ test_text = r""">It was a single decision.
 # the actual character instead of interpreting it as a special character
 
 def test_format(text: str) -> str:
-    new_text = text.replace(">", "")
-    text = new_text
+    #new_text = text.replace(">", "")
+    #text = new_text
 
     split_line = text.splitlines()
     current_index = 1
     current_page = 1
+    newline_count = 0
 
     lines = {}
     
     for k in split_line:
+        newline_string = ""
+
+        # TODO: instead of replacing > at start, when it detects a empty line with >,
+        # add \n to the next line, depending on how much spaces there are after >
         if k == "":
             current_index = 1
             current_page += 1
+            newline_count = 0
             continue
+
+        if k == ">":
+            newline_count += 1
+            continue
+        
+        k = k.replace(">", "")
+
+        # NOTE: needs testing
+        if newline_count > 0:
+            for m in range(newline_count):
+                newline_string += "\n"
+            
+            #k = newline_string + k
+            new_text = newline_string + k
+            k = new_text
+            newline_count = 0
+
 
         if k.count("\\") > 0:
             continue_split = k.split("\\")

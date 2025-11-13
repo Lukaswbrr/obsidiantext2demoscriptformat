@@ -124,5 +124,9 @@ def continue_to_nextline_csv(lines, filename: str = "output.csv", scene_name_csv
 def add_existant_to_csv(lines, filename: str = 'output.csv'):
     pass
 
+# replaces existant fields values of a specific column
+def replace_existant_csv(lines, filename: str = 'output.csv'):
+    pass
+
 # TODO: add mode for appending to existant csv files, replace existant files, make it so
 # it doesnt overwrite others columns, etc

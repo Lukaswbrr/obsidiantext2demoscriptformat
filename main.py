@@ -31,6 +31,6 @@ test_text = r""">It was a single decision.
 
 #append_to_csv(test_format(test_text), "output_test.csv")
 
-continue_to_nextline_csv(test_format(test_text), "output_test copy.csv")
+#continue_to_nextline_csv(test_format(test_text), "output_test copy.csv")
 
-#format_test('output.csv', "en")
+format_test('output/output_test copy.csv', "en")

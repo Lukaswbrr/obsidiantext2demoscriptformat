@@ -8,11 +8,11 @@ def _add_dialogue_format(scene_name, lang):
     index = split[3]
 
     dialogue_func = ""
-
+    
     if page == "1" and index == "1":
-        dialogue_func = f"add_dialogue_start(tr(\"{scene_name}\"), \"{set_name}\")"
+        dialogue_func = f"\nadd_dialogue_start(tr(\"{scene_name}\"), \"{set_name}\")"
     elif index == "1":
-        dialogue_func = f"add_dialogue_next(tr(\"{scene_name}\"), \"{set_name}\")"
+        dialogue_func = f"\nadd_dialogue_next(tr(\"{scene_name}\"))"
     else:
         dialogue_func = f"add_dialogue(tr(\"{scene_name}\"))"
 

@@ -6,7 +6,7 @@ import csv
 # TODO: generate automatically via obsidian text stuff
 # add input for adding scene name and set name
 
-def add_to_csv(lines, filename: str = 'output.csv'):
+def add_to_csv(lines, filename: str = 'output/output.csv'):
     # NOTE: temporary data, will be appended to existing csv next update
     initial_data = [['scene', 'en', 'pt-br']]
 
@@ -27,7 +27,7 @@ def add_to_csv(lines, filename: str = 'output.csv'):
     except Exception as e:
         print(f"Error writing to CSV: {e}")
 
-def append_to_csv(lines, filename: str = "output.csv", mode: str = "a"):
+def append_to_csv(lines, filename: str = "output/output.csv", mode: str = "a"):
     data = []
 
     for key, value in lines.items():
@@ -48,7 +48,7 @@ def append_to_csv(lines, filename: str = "output.csv", mode: str = "a"):
     except Exception as e:
         print(f"Error writing to CSV: {e}")
 
-def continue_to_nextline_csv(lines, filename: str = "output.csv", scene_name_csv: str = "prologue", set_name_csv: str = "start"):
+def continue_to_nextline_csv(lines, filename: str = "output/output.csv", scene_name_csv: str = "prologue", set_name_csv: str = "start"):
     data = []
     page = ""
     dict_rows = []
@@ -126,8 +126,70 @@ def add_existant_to_csv(lines, filename: str = 'output.csv'):
 
 # replaces existant fields values of a specific column
 # maybe this can work as a add too?
-def replace_existant_csv(lines, filename: str = 'output.csv'):
-    pass
+def replace_existent_csv(lines, scene_name_csv: str, set_name_csv: str, page_csv: str, index_csv: str, lang: str, filename: str = 'output/output.csv'):
+    data = []
+    page = ""
+    dict_rows = []
+
+    try:
+        with open(filename, 'r+') as file:
+            reader_dict = csv.DictReader(file)
+
+            dict_rows = list(reader_dict)
+
+    except Exception as e:
+        print(f"Error writing to CSV: {e}")
+    
+    if not lang in dict_rows[0]:
+        print(f"Language column '{lang}' does not exist in the CSV.")
+        return
+
+    index = 0
+
+
+    for k in dict_rows:
+        scene_name = k["scene"].split("_")[0]
+        set_name = k["scene"].split("_")[1]
+        page_found = k["scene"].split("_")[2]
+        index_found = k["scene"].split("_")[3]
+        
+
+        if scene_name == scene_name_csv and page_found == page_csv and index_found == index_csv:
+            print(scene_name)
+            print(index)
+            break
+
+        index += 1
+    
+    for k in range(len(lines)):
+        index_replace = index + k
+
+        if index_replace >= len(dict_rows):
+            print("Index out of range, stopping replacement.")
+            break
+
+        scene_name = dict_rows[index_replace]["scene"].split("_")[0]
+        set_name = dict_rows[index_replace]["scene"].split("_")[1]
+
+        if scene_name != scene_name_csv or set_name != set_name_csv:
+            print("Scene name or set name mismatch, stopping replacement.")
+            break
+
+        dict_rows[index_replace][lang] = list(lines.values())[k]
+        print(f"Replaced line at index {index_replace}: {dict_rows[index_replace]}")
+    
+    fieldnames = dict_rows[0].keys()
+
+    try:
+        with open(filename, 'w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            
+            writer.writeheader()
+
+            writer.writerows(dict_rows)
+    except Exception as e:
+        print(f"Error writing to CSV: {e}")
+
 
 # TODO: add mode for appending to existant csv files, replace existant files, make it so
 # it doesnt overwrite others columns, etc

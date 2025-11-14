@@ -1,31 +1,58 @@
 import pyperclip as pc
-
-
-# NOTE: r makes the text raw, so it doesn't escape characters
-test_text = r""">It was a single decision.
->It's scary how much a single decision can change one's life so much.
->The decision in that day really changed me. \Comparing that day and the yesterday, it was like a window, where both sides are extremely different.
->One side was the normal me.
->But the other, was no longer in the realms of normality.
-
->That day, I decided to follow my heart.
->To chase after what I truly wanted.
->And so, I left everything behind.
->Family, friends, everything.
->It was a tough decision, but I knew it was the right one.
->As I walked away from my old life, I felt a mix of fear and excitement.
->But deep down, I knew that this was the start of something new.
-"""
-
-#start = input("Once ready with text on clipboard, press Enter to start...")
-
-#print("yey")
+import re
 
 # TODO: add support for special characters
 # for example, \ makes a continue in the same line, without going to the next line
 # like NScripter.
 # add support for when it's more than the same special character (@@, \\, etc), it types
 # the actual character instead of interpreting it as a special character
+
+def _split_with_escapes(line: str):
+    """
+    Split on standalone continuation backslashes:
+    - Collapse '\\' -> '\'
+    - Keep '\n', '\t', '\r' as literal pairs (do not split)
+    - Split on '\' followed by any other char or end-of-line (drop that '\')
+    """
+    parts = []
+    buf = []
+    i = 0
+    L = len(line)
+    while i < L:
+        ch = line[i]
+        if ch == "\\":
+            if i + 1 < L:
+                nxt = line[i + 1]
+                if nxt == "\\":           # literal backslash
+                    test = "\\"
+                    buf.append(test[0])
+                    print(buf)
+                    i += 2
+                    continue
+                if nxt in ("t", "r"):  # keep escape as literal
+                    buf.append("\\")
+                    buf.append(nxt)
+                    i += 2
+                    continue
+                # continuation split (drop '\')
+                if buf:
+                    parts.append("".join(buf))
+                    buf = []
+                i += 1
+                continue
+            else:
+                # trailing '\' acts like a continuation split
+                if buf:
+                    parts.append("".join(buf))
+                    buf = []
+                i += 1
+                continue
+        else:
+            buf.append(ch)
+            i += 1
+    if buf:
+        parts.append("".join(buf))
+    return parts
 
 def test_format(text: str) -> str:
     #new_text = text.replace(">", "")
@@ -67,14 +94,31 @@ def test_format(text: str) -> str:
 
 
         if k.count("\\") > 0:
+            # TODO: make it not split special characters, like
+            # [\, \n, etc]
+
             continue_split = k.split("\\")
 
-            for cont in continue_split:
-                if "\\" in cont:
-                    cont = cont.replace("\\", "")
+            if "\\" in k:
+                # Split only on standalone continuation backslashes:
+                # A continuation backslash = '\' not followed by n,t,r or '\'
+                # Pattern explanation:
+                # \\(?=[^tr\\]|$)  -> a backslash with next char NOT in t r \ OR end of string
+                parts = re.split(r'\\(?=[^tr\\]|$)', k)
 
-                lines[f"page_{current_page}_line_{current_index}"] = cont
-                current_index += 1
+                for part in parts:
+                    if not part:
+                        continue
+                    lines[f"page_{current_page}_line_{current_index}"] = part
+                    current_index += 1
+                continue
+
+            # for cont in continue_split:
+            #     if "\\" in cont:
+            #         cont = cont.replace("\\", "")
+
+            #     lines[f"page_{current_page}_line_{current_index}"] = cont
+            #     current_index += 1
                 
             continue
         

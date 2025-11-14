@@ -18,7 +18,7 @@ def _add_dialogue_format(scene_name, lang):
 
     return dialogue_func
 
-def format_test(csv_file, lang):
+def format_test(csv_file, lang, scene: str = "", setname: str = ""):
     # NOTE: format
     # add_dialogue(scene_csv_key) (first page is add_dialogue_start)
     # if next page, use add_dialogue_next
@@ -36,7 +36,13 @@ def format_test(csv_file, lang):
             
             #print(f"{row["scene"]}: {row[lang]}")
             
-            print(_add_dialogue_format(row["scene"], row[lang]) )
+            if not setname and not scene:
+                print(_add_dialogue_format(row["scene"], row[lang]) )
+                continue
 
+            row_scene = row["scene"].split("_")[0]
+            row_setname = row["scene"].split("_")[1]
 
-    pass
+            if row_scene == scene and row_setname == setname:
+                print(_add_dialogue_format(row["scene"], row[lang]) )
+                

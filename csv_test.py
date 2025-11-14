@@ -6,14 +6,14 @@ import csv
 # TODO: generate automatically via obsidian text stuff
 # add input for adding scene name and set name
 
-def add_to_csv(lines, filename: str = 'output/output.csv'):
+def add_to_csv(lines, setname: str, scenename: str, filename: str = 'output/output.csv'):
     # NOTE: temporary data, will be appended to existing csv next update
     initial_data = [['scene', 'en', 'pt-br']]
 
     for key, value in lines.items():
         split_key = key.split("_")
-        set_name = "start"
-        scene_name = "prologue"
+        set_name = setname
+        scene_name = scenename
         page = split_key[1]
         index = split_key[3]
 
@@ -27,13 +27,13 @@ def add_to_csv(lines, filename: str = 'output/output.csv'):
     except Exception as e:
         print(f"Error writing to CSV: {e}")
 
-def append_to_csv(lines, filename: str = "output/output.csv", mode: str = "a"):
+def append_to_csv(lines, scenename: str, setname: str, filename: str = "output/output.csv"):
     data = []
 
     for key, value in lines.items():
         split_key = key.split("_")
-        set_name = "start"
-        scene_name = "prologue"
+        set_name = setname
+        scene_name = scenename
         page = split_key[1]
         index = split_key[3]
 
@@ -48,7 +48,7 @@ def append_to_csv(lines, filename: str = "output/output.csv", mode: str = "a"):
     except Exception as e:
         print(f"Error writing to CSV: {e}")
 
-def continue_to_nextline_csv(lines, filename: str = "output/output.csv", scene_name_csv: str = "prologue", set_name_csv: str = "start"):
+def continue_to_nextline_csv(lines, scene_name_csv: str = "prologue", set_name_csv: str = "start", filename: str = "output/output.csv"):
     data = []
     page = ""
     dict_rows = []
@@ -76,19 +76,12 @@ def continue_to_nextline_csv(lines, filename: str = "output/output.csv", scene_n
         if set_name == set_name_csv and scene_name == scene_name_csv:
             insert_index += 1
             last_page_found = int(page_found)
-    
-    #print(f"Last set found: {last_set_found}")
-
-    #print(last_page_found)
-    print(insert_index)
-    #print( dict_rows[last_set_found] )
-    #print(dict_rows)
 
 
     for key, value in lines.items():
         split_key = key.split("_")
-        set_name = "start"
-        scene_name = "prologue"
+        set_name = set_name_csv
+        scene_name = scene_name_csv
         page = str(int(split_key[1]) + last_page_found)
         index = split_key[3]
 
@@ -100,9 +93,7 @@ def continue_to_nextline_csv(lines, filename: str = "output/output.csv", scene_n
 
         dict_rows.insert(insert_index, new_row_dict)
         insert_index += 1
-        #print(page)
     
-    #print(dict_rows)
 
     fieldnames = dict_rows[0].keys()
 

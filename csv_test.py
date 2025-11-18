@@ -144,7 +144,9 @@ def replace_existent_csv(lines, scene_name_csv: str, set_name_csv: str, page_csv
         page_found = k["scene"].split("_")[2]
         index_found = k["scene"].split("_")[3]
         
-
+        print(scene_name == scene_name_csv)
+        print(page_found == page_csv)
+        print(index_found == index_csv)
         if scene_name == scene_name_csv and page_found == page_csv and index_found == index_csv:
             print(scene_name)
             print(index)

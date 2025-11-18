@@ -171,7 +171,7 @@ while True:
 
             continue_to_nextline_csv(test_format(clipboard_text), scenename, setname, filename)
         case '3':
-            print("Contiuning to CSV...")
+            print("Replacing to CSV...")
             filename = input("Enter filename (default: output/output.csv): ") or "output/output.csv"
             
             if ".csv" not in filename:
@@ -197,8 +197,24 @@ while True:
             if "_" in setname:
                 print("Set name cannot contain underscores (_).")
                 continue
+
+            lang = input("Enter language code to replace (e.g., 'pt-br'): ")
+
+            if lang.strip() == "":
+                print("Language code cannot be empty.")
+                continue
+        
+            try:
+                page = int(input("Enter page number: "))
+                index = int(input("Enter index number: "))
+            except ValueError:
+                print("Page and index must be integers.")
+                continue
+
+            page = str(page)
+            index = str(index)
             
-            continue_to_nextline_csv(test_format(clipboard_text), scenename, setname, filename)
+            replace_existent_csv(test_format(clipboard_text), scenename, setname, page, index, lang, filename)
         case '4':
             print(f"Clipboard text: {clipboard_text}")
         case '5':
@@ -222,17 +238,3 @@ while True:
             break
         case _:
             print("Invalid choice.")
-
-
-
-#print( test_format(test_text) )
-
-#add_to_csv(test_format(test_text))
-
-#append_to_csv(test_format(test_text), "output_test.csv")
-
-#continue_to_nextline_csv(test_format(test_text), "output_test copy.csv")
-
-#replace_existent_csv(test_format(test_text3), "prologue", "start", "1", "1", "pt-br")
-
-#format_test('output/output_test copy.csv', "en")

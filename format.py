@@ -74,6 +74,7 @@ def test_format(text: str) -> str:
         if k == "":
             if already_empty_line:
                 continue
+            
             current_index = 1
             current_page += 1
             newline_count = 0

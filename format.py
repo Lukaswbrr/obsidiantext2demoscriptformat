@@ -62,6 +62,7 @@ def test_format(text: str) -> str:
     current_index = 1
     current_page = 1
     newline_count = 0
+    already_empty_line = False
 
     lines = {}
     
@@ -71,15 +72,19 @@ def test_format(text: str) -> str:
         # TODO: instead of replacing > at start, when it detects a empty line with >,
         # add \n to the next line, depending on how much spaces there are after >
         if k == "":
+            if already_empty_line:
+                continue
             current_index = 1
             current_page += 1
             newline_count = 0
+            already_empty_line = True
             continue
 
         if k == ">":
             newline_count += 1
             continue
-        
+
+        already_empty_line = False
         k = k.replace(">", "")
 
         # NOTE: needs testing

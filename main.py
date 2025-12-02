@@ -80,37 +80,6 @@ while True:
     user_input = input("Select an option (1-10): ")
 
     match user_input:
-        # case '1':
-        #     print("Adding to CSV...")
-        #     filename = input("Enter filename (default: output/output.csv): ") or "output/output.csv"
-            
-        #     if ".csv" not in filename:
-        #         print("Invalid filename. Must end with .csv")
-        #         continue
-
-        #     scenename = input("Enter scene name: ")
-
-        #     if scenename.strip() == "":
-        #         print("Scene name cannot be empty.")
-        #         continue
-            
-        #     if "_" in scenename:
-        #         print("Scene name cannot contain underscores (_).")
-        #         continue
-
-        #     setname = input("Enter set name: ")
-            
-        #     if setname.strip() == "":
-        #         print("Set name cannot be empty.")
-        #         continue
-            
-        #     if "_" in setname:
-        #         print("Set name cannot contain underscores (_).")
-        #         continue
-            
-        #     print("Added to CSV.")
-            
-        #     add_to_csv(test_format(test_text), scenename, setname, filename)
         case '1':
             print("Appending to CSV...")
             filename = input("Enter filename (default: output/output.csv): ") or "output/output.csv"

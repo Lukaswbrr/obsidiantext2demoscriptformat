@@ -19,10 +19,6 @@ def _add_dialogue_format(scene_name, lang):
     return dialogue_func
 
 def format_css(csv_file, lang, scene: str = "", setname: str = ""):
-    # NOTE: format
-    # add_dialogue(scene_csv_key) (first page is add_dialogue_start)
-    # if next page, use add_dialogue_next
-
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
 
@@ -34,7 +30,6 @@ def format_css(csv_file, lang, scene: str = "", setname: str = ""):
                 print(f"Language {lang} not found in CSV.")
                 return
             
-            #print(f"{row["scene"]}: {row[lang]}")
             
             if not setname and not scene:
                 print(_add_dialogue_format(row["scene"], row[lang]) )

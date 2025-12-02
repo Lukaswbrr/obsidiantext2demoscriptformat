@@ -88,7 +88,7 @@ def continue_to_nextline_csv(lines, scene_name_csv: str = "prologue", set_name_c
         new_row_dict = {
             'scene': f"{scene_name}_{set_name}_{page}_{index}",
             'en': value,
-            'pt-br': ""  # Assuming 'pt-br' is your third column
+            'pt-br': ""
         }
 
         dict_rows.insert(insert_index, new_row_dict)

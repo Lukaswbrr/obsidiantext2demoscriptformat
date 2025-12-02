@@ -55,9 +55,6 @@ def _split_with_escapes(line: str):
     return parts
 
 def format_text(text: str) -> str:
-    #new_text = text.replace(">", "")
-    #text = new_text
-
     split_line = text.splitlines()
     current_index = 1
     current_page = 1
@@ -69,8 +66,6 @@ def format_text(text: str) -> str:
     for k in split_line:
         newline_string = ""
 
-        # TODO: instead of replacing > at start, when it detects a empty line with >,
-        # add \n to the next line, depending on how much spaces there are after >
         if k == "":
             if already_empty_line:
                 continue
@@ -88,12 +83,10 @@ def format_text(text: str) -> str:
         already_empty_line = False
         k = k.replace(">", "")
 
-        # NOTE: needs testing
         if newline_count > 0:
             for m in range(newline_count):
                 newline_string += "\n"
             
-            #k = newline_string + k
             new_text = newline_string + k
             k = new_text
             newline_count = 0

@@ -1,7 +1,7 @@
 import pyperclip as pc
 from csv_test import add_to_csv, append_to_csv, continue_to_nextline_csv, replace_existent_csv
-from format import test_format
-from csv_format import format_test
+from format import format_text
+from csv_format import format_css
 
 print("Welcome to the Obsidian Text to Demo Script Format CSV Tool!")
 
@@ -55,7 +55,7 @@ while True:
                 print("Set name cannot contain underscores (_).")
                 continue
 
-            append_to_csv(test_format(clipboard_text), scenename, setname, filename)
+            append_to_csv(format_text(clipboard_text), scenename, setname, filename)
         case '2':
             print("Contiuning to CSV...")
             filename = input("Enter filename (default: output/output.csv): ") or "output/output.csv"
@@ -84,7 +84,7 @@ while True:
                 print("Set name cannot contain underscores (_).")
                 continue
 
-            continue_to_nextline_csv(test_format(clipboard_text), scenename, setname, filename)
+            continue_to_nextline_csv(format_text(clipboard_text), scenename, setname, filename)
         case '3':
             print("Replacing to CSV...")
             filename = input("Enter filename (default: output/output.csv): ") or "output/output.csv"
@@ -129,7 +129,7 @@ while True:
             page = str(page)
             index = str(index)
             
-            replace_existent_csv(test_format(clipboard_text), scenename, setname, page, index, lang, filename)
+            replace_existent_csv(format_text(clipboard_text), scenename, setname, page, index, lang, filename)
         case '4':
             print(f"Clipboard text: {clipboard_text}")
         case '5':
@@ -137,7 +137,7 @@ while True:
             clipboard_text = pc.paste()
             print("Clipboard text updated.")
         case '6':
-            formatted_lines = test_format(clipboard_text)
+            formatted_lines = format_text(clipboard_text)
             print("Formatted text:")
             
             for key, value in formatted_lines.items():
@@ -147,7 +147,7 @@ while True:
             input_scene = input("Type the scene name to filter (or press Enter to skip): ")
             input_setname = input("Type the set name to filter (or press Enter to skip): ")
             
-            format_test(filepath, "en", input_scene, input_setname)
+            format_css(filepath, "en", input_scene, input_setname)
         case '10':
             print("Exiting program.")
             break

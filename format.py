@@ -54,7 +54,7 @@ def _split_with_escapes(line: str):
         parts.append("".join(buf))
     return parts
 
-def test_format(text: str) -> str:
+def format_text(text: str) -> str:
     #new_text = text.replace(">", "")
     #text = new_text
 

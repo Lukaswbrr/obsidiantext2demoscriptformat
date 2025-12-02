@@ -18,7 +18,7 @@ def _add_dialogue_format(scene_name, lang):
 
     return dialogue_func
 
-def format_test(csv_file, lang, scene: str = "", setname: str = ""):
+def format_css(csv_file, lang, scene: str = "", setname: str = ""):
     # NOTE: format
     # add_dialogue(scene_csv_key) (first page is add_dialogue_start)
     # if next page, use add_dialogue_next

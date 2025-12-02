@@ -105,26 +105,26 @@ def test_format(text: str) -> str:
 
             continue_split = k.split("\\")
 
-            if "\\" in k:
-                # Split only on standalone continuation backslashes:
-                # A continuation backslash = '\' not followed by n,t,r or '\'
-                # Pattern explanation:
-                # \\(?=[^tr\\]|$)  -> a backslash with next char NOT in t r \ OR end of string
-                parts = re.split(r'\\(?=[^tr\\]|$)', k)
+            # if "\\" in k:
+            #     # Split only on standalone continuation backslashes:
+            #     # A continuation backslash = '\' not followed by n,t,r or '\'
+            #     # Pattern explanation:
+            #     # \\(?=[^tr\\]|$)  -> a backslash with next char NOT in t r \ OR end of string
+            #     parts = re.split(r'\\(?=[^tr\\]|$)', k)
 
-                for part in parts:
-                    if not part:
-                        continue
-                    lines[f"page_{current_page}_line_{current_index}"] = part
-                    current_index += 1
-                continue
+            #     for part in parts:
+            #         if not part:
+            #             continue
+            #         lines[f"page_{current_page}_line_{current_index}"] = part
+            #         current_index += 1
+            #     continue
 
-            # for cont in continue_split:
-            #     if "\\" in cont:
-            #         cont = cont.replace("\\", "")
+            for cont in continue_split:
+                if "\\" in cont:
+                    cont = cont.replace("\\", "")
 
-            #     lines[f"page_{current_page}_line_{current_index}"] = cont
-            #     current_index += 1
+                lines[f"page_{current_page}_line_{current_index}"] = cont
+                current_index += 1
                 
             continue
         

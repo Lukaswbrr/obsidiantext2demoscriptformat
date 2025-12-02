@@ -5,7 +5,6 @@ from csv_format import format_test
 
 # NOTE: r makes the text raw, so it doesn't escape characters
 
-
 test_text = r""">It was a single decision.
 >It's scary how much a single decision can change one's life so much.
 >The decision in that day really changed me. \Comparing that day and the yesterday, it was like a window, where both sides are extremely different.

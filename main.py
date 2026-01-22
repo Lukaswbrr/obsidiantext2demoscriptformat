@@ -18,7 +18,8 @@ instructions = """Instructions:
 5 - Change clipboard text: Allows you to change the clipboard text.
 6 - Print clipboard formatted text: Displays the text after formatting.
 7 - Print format to DemoScripter syntax: Displays the text in DemoScripter format of a specific csv file.
-10 - Exit: Exits the program."""
+10 - Exit: Exits the program.
+help - Displays these instructions again."""
 
 print(instructions)
 
@@ -151,5 +152,7 @@ while True:
         case '10':
             print("Exiting program.")
             break
+        case 'help':
+            print(instructions)
         case _:
             print("Invalid choice.")

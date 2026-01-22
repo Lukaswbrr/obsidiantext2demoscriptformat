@@ -1,3 +1,5 @@
+# Obsidian Text 2 Demo Script Format
+
 >[!WARNING]
 >This is a temporary solution and not meant to be used as a permament solution for making CSV files for DemoScripter!
 >In the future, DemoScripter will have a proper addon menu that you can create CSV files automatically!
@@ -7,18 +9,20 @@ Script for transforming normal text to [DemoScripter](https://github.com/Lukaswb
 The syntax of obsidian is the way I write for visual novels, thats why theres is a > at the start, which gets replaced by nothing.
 
 ## Instructions
+
 Before running this script, make sure you have a text on your clipboard!
 
 Run the main.py file. It will print the instructions for the usage.
 
-To create a file with CSV, run the first instruction. It will create a file with the parameters you specified. 
+To create a file with CSV, run the first instruction. It will create a file with the parameters you specified.
 
 When the file is created, make sure to add a new row on the first line for scene and language.
 
 When creating CSV files with this program, I recommend creating seperate CSV files for each scene before merging all together to one big CSV file for your visual novel project.
 
 ### Example of first intrusction
-```
+
+```csv
 scene,en,pt-br
 prologue_start_1_1,test1,
 prologue_start_1_2,test2,
@@ -34,6 +38,7 @@ prologue_start_2_4,Test11,
 ```
 
 ### Add text to a second language
+
 If you want to add text to a second language in the same csv file (assuming you're still on the script), type 5 and press enter.
 
 Copy the text that will be used for the second language and then press enter.
@@ -45,7 +50,8 @@ Type the filename where your csv is located on, scene name and set name to where
 If you have the entire text, start to finish, then type for page number and index number both to 1.
 
 ### Example of third instruction
-```
+
+```csv
 scene,en,pt-br
 prologue_start_1_1,test1,teste1
 prologue_start_1_2,test2,teste2
@@ -61,6 +67,7 @@ prologue_start_2_4,Test11,Teste11
 ```
 
 ### Print DemoScripter syntax
+
 After creating the CSV file, press the instruction 7.
 
 Type where your CSV file is located.
@@ -68,7 +75,8 @@ Type where your CSV file is located.
 If you want for all the file to be printed as DemoScripter syntax, just press enter without any arguments.
 
 #### Example (using the CSV file from third instruction example)
-```
+
+```gdscript
 add_dialogue_start(tr("prologue_start_1_1"), "start")
 add_dialogue(tr("prologue_start_1_2"))
 add_dialogue(tr("prologue_start_1_3"))
@@ -90,6 +98,7 @@ Then, you can add this to your DemoScripter project!
 >I'm only planning on adding this functionality on DemoScripter addon menu.
 
 ### All Instructions
+
 1 - Append to CSV: Appends the formatted text to an existing CSV file.
 2 - Continue to Next Line in CSV: Finds the next available line in the CSV based on
    scene and set names, and adds the formatted text there.
@@ -102,13 +111,15 @@ Then, you can add this to your DemoScripter project!
 10 - Exit: Exits the program.
 
 ## Obsidian Syntax
+
 \> does nothing. It's just a way I write visual novel scripts on obsidian, which gets replaced.
 \ is a line break, making the text go to the next line.
 
 ### Example
+
 In the example below, > gets ignored and replaced.
 
-```
+```text
 >test1
 >test2
 >test3

@@ -56,7 +56,7 @@ while True:
                 print("Set name cannot contain underscores (_).")
                 continue
 
-            append_to_csv(format_text(clipboard_text), scenename, setname, filename)
+            append_to_csv(format_text(clipboard_text, filename), scenename, setname, filename)
         case '2':
             print("Contiuning to CSV...")
             filename = input("Enter filename (default: output/output.csv): ") or "output/output.csv"
